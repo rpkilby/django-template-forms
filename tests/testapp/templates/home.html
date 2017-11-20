@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block styles %}
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+          crossorigin="anonymous">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="offset-2 col-8">
+                <h1 class="mt-4">Form examples</h1>
+                <hr class="my-4">
+                <ul>
+                    <li><a href="{% url 'bs3-block' %}">BS3 block form</a></li>
+                    <li><a href="{% url 'bs4-block' %}">BS4 block form</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
