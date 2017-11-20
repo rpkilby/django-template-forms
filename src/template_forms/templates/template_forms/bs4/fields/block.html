@@ -1,0 +1,6 @@
+<div class="{{ outer_classes }}">
+    {{ label }}
+    {{ field }}
+    {% for error in errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+    {% if help_text %}<small class="form-text text-muted">{{ help_text }}</small>{% endif %}
+</div>
