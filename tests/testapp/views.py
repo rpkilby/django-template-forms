@@ -13,7 +13,9 @@ def not_startswith_a(value):
 
 # forms ########################################################
 class Mixin(forms.Form):
-    username = forms.CharField(min_length=8, max_length=10, validators=[not_startswith_a], help_text='Please enter your username')
+    username = forms.CharField(min_length=8, max_length=10,
+                               validators=[not_startswith_a],
+                               help_text='Please enter your username')
     account_type = forms.ChoiceField(help_text='Chose your pricing plan', choices=(
         ('corp', 'Corporate'),
         ('strt', 'Start-up'),
