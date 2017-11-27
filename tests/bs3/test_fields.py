@@ -12,7 +12,7 @@ def startswith_a(value):
 
 
 class BlockFieldTests(TestCase):
-    class Form(bs3.BlockForm):
+    class Form(bs3.BlockForm, forms.Form):
         field = forms.CharField(required=False, validators=[startswith_a], help_text='Example text.', )
 
     def get_attrs(self, bf):

@@ -1,6 +1,6 @@
 from collections import OrderedDict
 
-from django.forms import Form
+from django.forms.forms import BaseForm
 from django.utils.encoding import force_text
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
@@ -25,13 +25,19 @@ def add_css_classes(boundfield, css_classes):
     widget.attrs['class'] = " ".join(classes)
 
 
-class TemplateForm(Form):
+class TemplateForm(BaseForm):
+    """
+    Generic mixin that implements the template rendering logic for the fields and the form.
+
+    This mixin should precede `forms.Form` or `forms.ModelForm` to ensure that the correct
+    rendering function is called by default.
+    """
     form_template_name = None
     field_template_name = None
 
-    outer_css_class = ''
-    label_css_class = ''
-    field_css_class = ''
+    outer_css_class = None
+    label_css_class = None
+    field_css_class = None
 
     error_css_class = None
 
