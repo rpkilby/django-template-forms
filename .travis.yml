@@ -1,0 +1,31 @@
+sudo: false
+
+language: python
+
+python:
+  - "3.4"
+  - "3.5"
+  - "3.6"
+
+install:
+  - pip install -U setuptools wheel
+  - pip install tox tox-travis tox-venv
+  - python setup.py bdist_wheel
+
+script:
+  - tox
+
+matrix:
+  include:
+    - python: 3.6
+      env: TOXENV=coverage
+      after_success:
+        - pip install codecov && codecov
+    - python: 3.6
+      env: TOXENV=isort
+    - python: 3.6
+      env: TOXENV=lint
+    - python: 3.6
+      env: TOXENV=warnings
+  allow_failures:
+    - env: TOXENV=warnings
