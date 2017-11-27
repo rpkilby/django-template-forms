@@ -2,10 +2,12 @@ import sys
 from setuptools import setup, find_packages
 
 # require pypandoc conversion for upload
-if 'upload' in sys.argv[1:]:
+try:
     import pypandoc
-    README = pypandoc.convert('README.md', 'rst')
-else:
+    README = pypandoc.convert_file('README.md', 'rst')
+except ImportError:
+    if 'upload' in sys.argv[1:]:
+        raise
     README = open('README.md').read()
 
 
