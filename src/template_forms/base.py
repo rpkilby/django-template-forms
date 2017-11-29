@@ -1,28 +1,10 @@
-from collections import OrderedDict
-
 from django.forms.forms import BaseForm
 from django.utils.encoding import force_text
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 
-
-def add_css_classes(boundfield, css_classes):
-    """
-    Add a single or multiple css classes to a form widget. To add multiple classes, pass
-    them as a whitespace delimited string or a list. eg, `add_classes(boundfield, 'foo bar')`
-    """
-    if not css_classes:
-        return
-
-    if isinstance(css_classes, str):
-        css_classes = css_classes.split()
-
-    widget = boundfield.field.widget
-    classes = OrderedDict.fromkeys(widget.attrs.get('class', '').split())
-    classes.update(OrderedDict.fromkeys(css_classes))
-
-    widget.attrs['class'] = " ".join(classes)
+from .utils import add_css_classes
 
 
 class TemplateForm(BaseForm):
