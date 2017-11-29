@@ -1,0 +1,9 @@
+<div class="{{ outer_classes }}">
+    <div class="checkbox">
+        <label>
+            {{ field }} {{ bf.label }}
+        </label>
+    </div>
+    {% for error in errors %}<small class="help-block">{{ error }}</small>{% endfor %}
+    {% if help_text %}<small class="help-block">{{ help_text }}</small>{% endif %}
+</div>

@@ -1,10 +1,13 @@
+from django.forms import widgets
 
 from .base import TemplateForm
 
 
 class BlockForm(TemplateForm):
     form_template_name = 'template_forms/bs4/forms/block.html'
-    field_template_name = 'template_forms/bs4/fields/block.html'
+    field_template_map = {
+        widgets.Widget: 'template_forms/bs4/fields/block.html',  # default
+    }
 
     outer_css_class = 'form-group'
     label_css_class = ''
