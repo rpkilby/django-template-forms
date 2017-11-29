@@ -105,21 +105,21 @@ TEMPLATES = [
 Templates are provided for each supported CSS framework.
 
 **Note:**
-- horizontal layouts do not exist yet
+- horizontal layouts do not exist yet for BS 4.
 - check & radio field templates do not exist yet.
 
 **BS3:**
 
 - `template_forms/bs3/forms/block.html`
-- ~~`template_forms/bs3/forms/horizontal.html`~~
+- `template_forms/bs3/forms/horizontal.html`
 - `template_forms/bs3/fields/block.html`
 - `template_forms/bs3/fields/block_checkbox.html`
 - ~~`template_forms/bs3/fields/block_check_inline.html`~~
 - ~~`template_forms/bs3/fields/block_check_stacked.html`~~
 - ~~`template_forms/bs3/fields/block_radio_inline.html`~~
 - ~~`template_forms/bs3/fields/block_radio_stacked.html`~~
-- ~~`template_forms/bs3/fields/horizontal.html`~~
-- ~~`template_forms/bs3/fields/horizontal_checkbox.html`~~
+- `template_forms/bs3/fields/horizontal.html`
+- `template_forms/bs3/fields/horizontal_checkbox.html`
 - ~~`template_forms/bs3/fields/horizontal_check_inline.html`~~
 - ~~`template_forms/bs3/fields/horizontal_check_stacked.html`~~
 - ~~`template_forms/bs3/fields/horizontal_radio_inline.html`~~
