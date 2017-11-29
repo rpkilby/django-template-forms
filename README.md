@@ -60,6 +60,16 @@ class ArticleForm(bs3.BlockForm, forms.ModelForm):
         fields = ['title', 'author', 'published_date', ...]
 ```
 
+In the *view* template:
+
+```html
+<form method="post" action="">
+    {% csrf_token %}
+    {{ form }}
+    <button class="btn btn-primary" type="submit">Save</button>
+</form>
+```
+
 **TODO:** Document creation of custom `TemplateForm` subclass.
 
 ## Overriding Templates
