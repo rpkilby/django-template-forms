@@ -42,6 +42,10 @@ class BS4BlockForm(Mixin, bs4.BlockForm):
     pass
 
 
+class BS3HorizontalForm(Mixin, bs3.HorizontalForm):
+    pass
+
+
 # views ########################################################
 class HomeView(generic.TemplateView):
     template_name = 'home.html'
@@ -66,3 +70,14 @@ class BS4BlockFormView(BaseFormView):
     template_name = 'bs4.html'
     form_class = BS4BlockForm
     title = 'BS4 Block Form'
+
+
+class BS3HorizontalFormView(BaseFormView):
+    template_name = 'bs3.html'
+    form_class = BS3HorizontalForm
+    title = 'BS3 Horizontal Form'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form_class'] = 'form-horizontal'
+        return context
