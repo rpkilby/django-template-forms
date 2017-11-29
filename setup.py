@@ -21,7 +21,7 @@ setup(
     packages=find_packages('src'),
     package_dir={'': 'src'},
     include_package_data=True,
-    version='0.2.0',
+    version='0.2.1',
     zip_safe=False,
     license='BSD License',
     classifiers=[
