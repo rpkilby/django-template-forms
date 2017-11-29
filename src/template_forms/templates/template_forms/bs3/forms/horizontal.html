@@ -1,0 +1,19 @@
+{% if top_errors %}
+<div class="row">
+    <div class="{{ left }}"></div>
+    <div class="{{ right }}">
+        <div class="text-danger">
+            The following errors have occurred:
+            {{ top_errors }}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% for field in hidden_output %}
+{{ field }}
+{% endfor %}
+
+{% for field in output %}
+{{ field }}
+{% endfor %}
