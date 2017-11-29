@@ -71,8 +71,10 @@ class TemplateForm(BaseForm):
         }
 
     def get_field_context(self, bf, errors):
-        # add the field_css_class to the widget attrs
         field_css_classes = self.get_field_css_classes(bf, errors)
+        label_css_classes = self.get_label_css_classes(bf, errors)
+
+        # add the field_css_class to the widget attrs
         if field_css_classes:
             add_css_classes(bf, ' '.join(field_css_classes))
 
@@ -83,7 +85,7 @@ class TemplateForm(BaseForm):
         # don't render label tag if label=''
         label = bf.label_tag(
             conditional_escape(force_text(bf.label)),
-            attrs={'class': self.label_css_class},
+            attrs={'class': ' '.join(label_css_classes)},
         ) if bf.label else ''
 
         return {
@@ -101,6 +103,12 @@ class TemplateForm(BaseForm):
             classes.append(self.field_css_class)
         if errors and self.error_css_class:
             classes.append(self.error_css_class)
+        return classes
+
+    def get_label_css_classes(self, bf, errors):
+        classes = []
+        if self.label_css_class:
+            classes.append(self.label_css_class)
         return classes
 
     def render_field(self, bf, errors):
