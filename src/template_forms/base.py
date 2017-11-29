@@ -4,7 +4,7 @@ from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 
-from .utils import add_css_classes
+from .utils import add_css_classes, try_classmro
 
 
 class TemplateForm(BaseForm):
@@ -15,7 +15,11 @@ class TemplateForm(BaseForm):
     rendering function is called by default.
     """
     form_template_name = None
-    field_template_name = None
+
+    # `field_template_map` should be a mapping of *widgets* to field template names. This
+    # may seem counterintuitive, but it is necessary as we're rendering the markup around
+    # the field's underlying widget, and this widget may be customized per-field.
+    field_template_map = None
 
     outer_css_class = None
     label_css_class = None
@@ -33,7 +37,14 @@ class TemplateForm(BaseForm):
         return self.form_template_name
 
     def get_field_template_name(self, boundfield):
-        return self.field_template_name
+        assert self.field_template_map is not None, \
+            '`{}.field_template_map` should be a mapping of widgets to template names.' \
+            .format(type(self).__name__)
+
+        return try_classmro(
+            self.field_template_map.get,
+            type(boundfield.field.widget)
+        )
 
     def get_form_context(self):
         # Errors that should be displayed above all fields.

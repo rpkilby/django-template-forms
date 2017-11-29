@@ -17,3 +17,14 @@ def add_css_classes(boundfield, css_classes):
     classes.update(OrderedDict.fromkeys(css_classes))
 
     widget.attrs['class'] = " ".join(classes)
+
+
+def try_classmro(fn, cls):
+    """
+    Try `fn` with the `cls` by walking its MRO until a result is returned.
+    eg, `try_classmro(field_dict.get, forms.CharField)`
+    """
+    for cls in cls.mro():
+        result = fn(cls)
+        if result is not None:
+            return result
