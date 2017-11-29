@@ -16,7 +16,7 @@ def not_now(value):
         raise forms.ValidationError('I cannot let you do that right now.')
 
 
-class BlockFieldTests(TestCase):
+class StandardFieldTests(TestCase):
     class Form(bs3.BlockForm, forms.Form):
         field = forms.CharField(required=False, validators=[startswith_a], help_text='Example text.', )
 
