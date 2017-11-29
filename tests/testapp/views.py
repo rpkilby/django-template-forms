@@ -22,8 +22,15 @@ class Mixin(forms.Form):
         ('comm', 'Commmunity'),
     ))
 
+    activate = forms.BooleanField(label='Activate account?', required=False)
+
     def clean(self):
-        super().clean()
+        cleaned_data = super().clean()
+        account_type = cleaned_data.get('account_type')
+        activate = cleaned_data.get('activate')
+
+        if account_type == 'corp' and activate:
+            self.add_error('activate', 'Corporate accounts must be vetted before activation.')
         raise forms.ValidationError('This is a non-field error')
 
 
