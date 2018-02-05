@@ -18,22 +18,16 @@ script:
 matrix:
   include:
     - python: 3.6
-      env: TOXENV=isort
-
-    - python: 3.6
-      env: TOXENV=lint
-
-    - python: 3.6
-      env: TOXENV=readme
+      env: TOXENV="isort,lint,readme"
       addons:
         apt_packages: pandoc
 
     - python: 3.6
-      env: TOXENV=coverage
+      env: TOXENV="coverage"
       after_success:
         - pip install codecov && codecov
 
     - python: 3.6
-      env: TOXENV=warnings
+      env: TOXENV="warnings"
   allow_failures:
-    - env: TOXENV=warnings
+    - env: TOXENV="warnings"
