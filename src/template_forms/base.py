@@ -25,7 +25,9 @@ class TemplateForm(BaseForm):
     label_css_class = None
     field_css_class = None
 
-    error_css_class = None
+    # Additional forms.Form attributes:
+    # - error_css_class
+    # - required_css_class
 
     def format_hidden_error(self, name, error):
         return _('(Hidden field %(name)s) %(error)s') % {
@@ -101,7 +103,8 @@ class TemplateForm(BaseForm):
         classes = []
         if self.field_css_class:
             classes.append(self.field_css_class)
-        if errors and self.error_css_class:
+        # boundfield uses a hasattr check instead of 'is not None'
+        if errors and hasattr(self, 'error_css_class'):
             classes.append(self.error_css_class)
         return classes
 

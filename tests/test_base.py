@@ -35,8 +35,23 @@ class GetFieldTemplateNameTests(TestCase):
         self.assertEqual(template_name, 'default.html')
 
     def test_not_set(self):
-
         form = self.NotSet()
         msg = '`NotSet.field_template_map` should be a mapping of widgets to template names.'
         with self.assertRaisesMessage(AssertionError, msg):
             form.get_field_template_name(None)
+
+
+class GetFieldCSSClassesTests(TestCase):
+    def test_error_css_class(self):
+        """
+        This result is "incorrect", but operates in accordance to the behavior
+        of `BoundField`, which will error when the attribute is a `NoneType`.
+        """
+        class Form(TemplateForm, forms.Form):
+            field = forms.CharField()
+            error_css_class = None
+
+        form = Form()
+        bf = form['field']
+
+        self.assertEqual([None], form.get_field_css_classes(bf, 'error'))
