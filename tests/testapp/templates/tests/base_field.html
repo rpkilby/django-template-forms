@@ -1,0 +1,6 @@
+<div class="{{ outer_classes }}">
+    {{ label }}
+    {{ field }}
+    {% for error in errors %}<p class="errors">{{ error }}</p>{% endfor %}
+    {% if help_text %}<p class="helptext">{{ help_text }}</p>{% endif %}
+</div>

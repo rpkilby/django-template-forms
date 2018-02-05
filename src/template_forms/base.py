@@ -94,7 +94,7 @@ class TemplateForm(BaseForm):
             'outer_classes': outer_classes,
             'label': force_text(label),
             'field': str(bf),
-            'help_text': force_text(bf.help_text),
+            'help_text': mark_safe(bf.help_text),
             'errors': errors,
             'bf': bf,
         }

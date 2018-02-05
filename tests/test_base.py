@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import widgets
 from django.test import TestCase
+from django.utils.translation import gettext as _
 
 from template_forms import TemplateForm
 
@@ -55,3 +56,67 @@ class GetFieldCSSClassesTests(TestCase):
         bf = form['field']
 
         self.assertEqual([None], form.get_field_css_classes(bf, 'error'))
+
+
+class RenderingTests(TestCase):
+    def test_top_errors(self):
+        class Form(TemplateForm, forms.Form):
+            form_template_name = 'tests/base_form.html'
+            field_template_map = {widgets.Widget: 'tests/base_field.html'}
+
+            def clean(self):
+                super().clean()
+                raise forms.ValidationError([
+                    forms.ValidationError('Error 1', code='error1'),
+                    forms.ValidationError('Error 2', code='error2'),
+                ])
+
+        self.assertHTMLEqual("""
+            <div class="errors">
+                The following errors have occurred:
+                <ul class="errorlist nonfield">
+                    <li>Error 1</li>
+                    <li>Error 2</li>
+                </ul>
+            </div>
+        """, str(Form({})))
+
+    def test_field_help_text_html(self):
+        """
+        Field.help_text should be considered safe. This is the default form behavior, and
+        is necessary for proper rendering of password validation help text.
+        """
+        class Form(TemplateForm, forms.Form):
+            form_template_name = 'tests/base_form.html'
+            field_template_map = {widgets.Widget: 'tests/base_field.html'}
+
+            field = forms.CharField(help_text='<span>help text</span>')
+
+        self.assertHTMLEqual("""
+            <div class="">
+                <label class="" for="id_field">Field:</label>
+                <input type="text" name="field" id="id_field" required>
+
+                <p class="helptext">
+                    <span>help text</span>
+                </p>
+            </div>
+        """, str(Form()))
+
+    def test_field_help_text_gettext(self):
+        class Form(TemplateForm, forms.Form):
+            form_template_name = 'tests/base_form.html'
+            field_template_map = {widgets.Widget: 'tests/base_field.html'}
+
+            field = forms.CharField(help_text=_('help text'))
+
+        self.assertHTMLEqual("""
+            <div class="">
+                <label class="" for="id_field">Field:</label>
+                <input type="text" name="field" id="id_field" required>
+
+                <p class="helptext">
+                    help text
+                </p>
+            </div>
+        """, str(Form()))
